@@ -22,13 +22,14 @@ CREATE TABLE `genome` (
 
 CREATE TABLE `genes` (
 	`filename` varchar(128) not null,
-	`id` varchar(32) primary key not null,
+	`id` varchar(32) not null,
 	`name` varchar(64) not null,
 	`type` varchar(32) not null,
 	`start` int not null,
 	`end` int not null,
 	`strand` char(1) not null,
 	`desc` varchar(250),
+	PRIMARY KEY (`filename`, `id`),
 	FOREIGN KEY fk_genes_filename (`filename`) REFERENCES genome (`filename`)
 	ON DELETE CASCADE
 ) ENGINE=InnoDB;
@@ -38,13 +39,14 @@ CREATE INDEX `genes_strand` ON `genes` (`strand`);
 
 CREATE TABLE `rna` (
 	`filename` varchar(128) not null,
-	`id` varchar(32) primary key not null,
+	`id` varchar(32) not null,
 	`type` varchar(8) not null,
 	`parent` varchar(32),
 	`start` int not null,
 	`end` int not null,
 	`evidence` varchar(250),
 	`product` varchar(250),
+	PRIMARY KEY (`filename`, `id`),
 	FOREIGN KEY fk_rna_filename (`filename`) REFERENCES genome (`filename`)
 	ON DELETE CASCADE
 ) ENGINE=InnoDB;
@@ -53,12 +55,13 @@ CREATE INDEX `rna_parent` ON `rna` (`parent`);
 
 CREATE TABLE `transcripts` (
 	`filename` varchar(128) not null,
-	`id` varchar(32) primary key not null,
+	`id` varchar(32) not null,
 	`parent` varchar(32) not null,
 	`start` int not null,
 	`end` int not null,
 	`evidence` varchar(250),
 	`product` varchar(250),
+	PRIMARY KEY (`filename`, `id`),
 	FOREIGN KEY fk_transcripts_filename (`filename`) REFERENCES genome (`filename`)
 	ON DELETE CASCADE
 ) ENGINE=InnoDB;
