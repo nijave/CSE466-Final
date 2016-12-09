@@ -29,12 +29,12 @@ for my $file (@fileList) {
 	}
 }
 if($smallSize > 0) {
-	print "GFF files appears to be a git lfs pointer. Correct file will be downloaded.\n";
+	print "\nGFF files appears to be a git lfs pointer. Correct file will be downloaded.\n\n";
 	`rm -f data/*`;
-	`wget ftp://ftp.ncbi.nlm.nih.gov/genomes/refseq/vertebrate_mammalian/Erinaceus_europaeus/latest_assembly_versions/GCF_000296755.1_EriEur2.0/GCF_000296755.1_EriEur2.0_genomic.gff.gz`;
-	`wget ftp://ftp.ncbi.nlm.nih.gov/genomes/refseq/vertebrate_mammalian/Echinops_telfairi/latest_assembly_versions/GCF_000313985.1_EchTel2.0/GCF_000313985.1_EchTel2.0_genomic.gff.gz`;
-	`gunzip *.gz`;
-	`mv *.gff data/`;
+	`wget ftp://ftp.ncbi.nlm.nih.gov/genomes/refseq/vertebrate_mammalian/Erinaceus_europaeus/latest_assembly_versions/GCF_000296755.1_EriEur2.0/GCF_000296755.1_EriEur2.0_genomic.gff.gz > /dev/null`;
+	`wget ftp://ftp.ncbi.nlm.nih.gov/genomes/refseq/vertebrate_mammalian/Echinops_telfairi/latest_assembly_versions/GCF_000313985.1_EchTel2.0/GCF_000313985.1_EchTel2.0_genomic.gff.gz > /dev/null`;
+	`gunzip *.gz > /dev/null`;
+	`mv *.gff data/ > /dev/null`;
 }
 
 print "\n!!! If these are incorrect, press CTRL-C to cancel script and place the correct GFFs in data/ !!!\n\n";
