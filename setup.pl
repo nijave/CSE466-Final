@@ -111,7 +111,7 @@ print "  - GFF_GTF_Parser.pm\n";
 
 $ok = getInput("Would you like to delete these?", "yes");
 # Delete setup files
-if(substr($ok, 0, 1) ne 'y') {
+if(substr($ok, 0, 1) eq 'y') {
 	`rm setup.pl $fileList[0] $fileList[1] Create_Database.sql GFF_GTF_Parser.pm`;
 	print "Setup files deleted.\n";
 }
