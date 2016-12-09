@@ -26,13 +26,13 @@ if(!defined $searchTerm || $searchType eq '') {
 }
 
 my $db_table;
-if( $searchType eq "RNA" ) {
+if(defined $searchType && $searchType eq "RNA" ) {
 	$db_table = 'rna';
 }
-elsif( $searchType eq "Gene" ) {
+elsif(defined $searchType && $searchType eq "Gene" ) {
 	$db_table = 'genes';
 }
-elsif( $searchType eq "Transcript" ) {
+elsif(defined $searchType && $searchType eq "Transcript" ) {
 	$db_table = 'transcripts';
 }
 else {
