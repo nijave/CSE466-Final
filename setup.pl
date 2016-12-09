@@ -97,6 +97,11 @@ print "  -> Imported: $fileList[0]\n";
 print "  -> Imported: $fileList[1]\n";
 print "Files have been imported into the database!\n\n";
 
+# Move the creds file to UI folder so DB_Helper can find it when called from those files
+`mv .db_creds ui/`;
+# Make sure perl files are executable
+`chmod -R 755 *.pl`;
+
 print "It's recommended to delete the following files used during setup:\n";
 print "  - setup.pl\n";
 print "  - $fileList[0]\n";
@@ -115,7 +120,7 @@ else {
 }
 
 print "\nSetup Complete!!\n\n";
-print "Visit http://bio466-f15.csi.miamioh.edu/~$me/ui or the website where you set this up.\n";
+print "Visit http://bio466-f15.csi.miamioh.edu/~$me/CSE466-Final/ui or the website where you set this up.\n";
 
 sub getInput {
 	my ($prompt, $default) = @_;
