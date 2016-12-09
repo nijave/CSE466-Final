@@ -20,6 +20,23 @@ for my $file (@fileList) {
 	print " - $file\n";
 }
 
+my $smallSize = 0;
+for my $file (@fileList) {
+	my $size = `stat -c%s "$file"`;
+	chomp($size);
+	if($size < 500) {
+		$smallSize++;
+	}
+}
+if($smallSize > 0) {
+	print "GFF files appears to be a git lfs pointer. Correct file will be downloaded.\n";
+	`rm -f data/*`;
+	`wget ftp://ftp.ncbi.nlm.nih.gov/genomes/refseq/vertebrate_mammalian/Erinaceus_europaeus/latest_assembly_versions/GCF_000296755.1_EriEur2.0/GCF_000296755.1_EriEur2.0_genomic.gff.gz`;
+	`wget ftp://ftp.ncbi.nlm.nih.gov/genomes/refseq/vertebrate_mammalian/Echinops_telfairi/latest_assembly_versions/GCF_000313985.1_EchTel2.0/GCF_000313985.1_EchTel2.0_genomic.gff.gz`;
+	`gunzip *.gz`;
+	`mv *.gff data/`;
+}
+
 print "\n!!! If these are incorrect, press CTRL-C to cancel script and place the correct GFFs in data/ !!!\n\n";
 
 # Get the name of the user running the script
