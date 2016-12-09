@@ -1,10 +1,3 @@
-START TRANSACTION;
--- Create the database --
-CREATE DATABASE IF NOT EXISTS `bio466`;
-
--- Use bio466 db --
-USE `bio466`;
-
 -- Drop any old tables --
 DROP TABLE IF EXISTS `genes`;
 DROP TABLE IF EXISTS `rna`;
@@ -66,5 +59,3 @@ CREATE TABLE `transcripts` (
 	ON DELETE CASCADE
 ) ENGINE=InnoDB;
 CREATE INDEX `transcripts_parent` ON `transcripts` (`parent`);
-
-COMMIT;
