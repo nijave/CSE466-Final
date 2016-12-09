@@ -3,22 +3,11 @@ use warnings;
 use DBI;
 use CGI;
 use Data::Dumper;
+use DB_Helper;
 use GFF_GTF_Parser;
 
-# setup database connection variables
-my $user = "root";
-my $password = "";
-my $host = "127.0.0.1";
-my $driver = "mysql";
-
 # connect to database
-my $dsn = "DBI:$driver:database=bio466;host=$host";
-my $dbh = DBI->connect($dsn, $user, $password, {
-   PrintError       => 1,
-   RaiseError       => 0,
-   AutoCommit       => 0,
-   FetchHashKeyName => 'NAME_lc',
-}) or die("Couldn't connect to database.\n");
+my $dbh = DB_Helper::handle();
 
 # Create a new file parser object
 my $parser = GFF_GTF_Parser->new(
