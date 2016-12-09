@@ -1,0 +1,44 @@
+<TMPL_INCLUDE NAME="header.tmpl">
+  <!-- Special stuff for datatables -->
+  <link rel="stylesheet" href="https://cdn.datatables.net/1.10.13/css/jquery.dataTables.min.css">
+  <script src="https://cdn.datatables.net/1.10.13/js/jquery.dataTables.min.js"></script>
+  
+  <!-- Page header -->
+  <h1 class="page-header">Search Results</h1>
+  
+  <!-- Displays a message to the user -->
+  <TMPL_IF NAME="MESSAGE">
+  <div class="row alert alert-warning" id="userMessage">
+	<p><TMPL_VAR NAME=MESSAGE></p>
+  </div>
+  </TMPL_IF>
+  
+  <TMPL_IF NAME=TABLE_ROWS>
+  <table id="searchResultTable" class="cell-border row-border">
+	<thead>
+		<tr>
+			<TMPL_VAR NAME=TABLE_HEADER>
+		</tr>
+	</thead>
+	<tbody>
+		<TMPL_LOOP NAME=TABLE_ROWS>
+		<tr><TMPL_VAR NAME=LINE></tr>
+		</TMPL_LOOP>
+	</tbody>
+  </table>
+  <script>
+	$(document).ready(function() {
+		$('#searchResultTable').DataTable( {
+			"columnDefs": [
+				{
+					"targets": [ 1 ],
+					"visible": false,
+					"searchable": false
+				}
+			]
+		});
+	});
+  </script>
+  </TMPL_IF>
+  
+<TMPL_INCLUDE NAME="footer.tmpl">

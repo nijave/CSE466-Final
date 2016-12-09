@@ -1,0 +1,125 @@
+<TMPL_INCLUDE NAME="header.tmpl">
+  <!-- Page header -->
+  <h1 class="page-header">Organism Comparison Overview</h1>
+  
+  <!-- Organism comparison text header -->
+  <div class="row">
+	<h2 class="text-center" style="margin: 12px;">Comparing: <strong><TMPL_VAR NAME=ORGANISM1></strong> to <strong><TMPL_VAR NAME=ORGANISM2></strong></h2>
+  </div>
+  
+  <!-- Organism pie charts -->
+  <div class="row text-center">
+	<div class="col-xs-4 col-sm-4">
+	  <div class="chart-container"><canvas id="chart_geneBreakdown"></canvas></div>
+	  <h4>Gene Distribution</h4>
+	  <span class="text-muted">Breakdown of gene overlap</span>
+	</div>
+	<div class="col-xs-4 col-sm-4">
+	  <div class="chart-container"><canvas id="chart_dataBreakdown1"></canvas></div>
+	  <h4><TMPL_VAR NAME=ORGANISM1></h4>
+	  <span class="text-muted">Data breakdown for <TMPL_VAR NAME=ORGANISM1></span>
+	</div>
+	<div class="col-xs-4 col-sm-4">
+	  <div class="chart-container"><canvas id="chart_dataBreakdown2"></canvas></div>
+	  <h4><TMPL_VAR NAME=ORGANISM2></h4>
+	  <span class="text-muted">Data breakdown for <TMPL_VAR NAME=ORGANISM2></span>
+	</div>
+  </div>
+  
+  <!-- Organism bar charts -->
+  <!-- genes -->
+  <div class="row text-center" style="margin-top: 40px">
+	  <div style="height: 60%; width: 80%; margin: 0 auto;"><canvas id="chart_geneTypes"></canvas></div>
+	  <h4>Gene types</h4>
+	  <span class="text-muted">Breakdown of gene types</span>
+  </div>
+  <!-- rna -->
+  <div class="row text-center" style="margin-top: 40px">
+	  <div style="height: 60%; width: 80%; margin: 0 auto;"><canvas id="chart_rnaTypes"></canvas></div>
+	  <h4>RNA types</h4>
+	  <span class="text-muted">Breakdown of RNA types</span>
+  </div>
+  
+  <script>
+	var ctx_geneBreakdown = document.getElementById('chart_geneBreakdown').getContext('2d');
+	var geneBreakdownData = {
+		labels: ['<TMPL_VAR NAME=ORGANISM1>', '<TMPL_VAR NAME=ORGANISM2>', 'In common'],
+		datasets: [{
+			backgroundColor: ["#e74c3c", "#f1c40f", "#3498db"],
+			data: [<TMPL_VAR NAME=ORGANISM1_geneBreakdown>, <TMPL_VAR NAME=ORGANISM2_geneBreakdown>, <TMPL_VAR NAME=INCOMMON_geneBreakdown>]
+		}]
+	};
+	var ctx_dataBreakdown1 = document.getElementById('chart_dataBreakdown1').getContext('2d');
+	var dataBreakdown1Data = {
+		labels: <TMPL_VAR NAME=ORGANISM1_DATA_BREAKDOWN_LABELS>,
+		datasets: [{
+			backgroundColor: ["#e74c3c", "#f1c40f", "#3498db"],
+			data: <TMPL_VAR NAME=ORGANISM1_DATA_BREAKDOWN_DATA>
+		}]
+	};
+	var ctx_dataBreakdown2 = document.getElementById('chart_dataBreakdown2').getContext('2d');
+	var dataBreakdown2Data = {
+		labels: <TMPL_VAR NAME=ORGANISM2_DATA_BREAKDOWN_LABELS>,
+		datasets: [{
+			backgroundColor: ["#e74c3c", "#f1c40f", "#3498db"],
+			data: <TMPL_VAR NAME=ORGANISM2_DATA_BREAKDOWN_DATA>
+		}]		
+	};
+	
+	var ctx_geneTypes = document.getElementById('chart_geneTypes').getContext('2d');
+	var geneTypesData = {
+		labels: <TMPL_VAR NAME=ORGANISM1_GENE_BREAKDOWN_LABELS>,
+		datasets: [
+			{
+				label: '<TMPL_VAR NAME=ORGANISM1>',
+				backgroundColor: "#f1c40f",
+				data: <TMPL_VAR NAME=ORGANISM1_GENE_BREAKDOWN_DATA>
+			},
+			{
+				label: '<TMPL_VAR NAME=ORGANISM2>',
+				backgroundColor: "#3498db",
+				data: <TMPL_VAR NAME=ORGANISM2_GENE_BREAKDOWN_DATA>
+			}
+		]		
+	};
+	
+	var ctx_rnaTypes = document.getElementById('chart_rnaTypes').getContext('2d');
+	var rnaTypesData = {
+		labels: <TMPL_VAR NAME=ORGANISM1_RNA_BREAKDOWN_LABELS>,
+		datasets: [
+			{
+				label: '<TMPL_VAR NAME=ORGANISM1>',
+				backgroundColor: "#f1c40f",
+				data: <TMPL_VAR NAME=ORGANISM1_RNA_BREAKDOWN_DATA>
+			},
+			{
+				label: '<TMPL_VAR NAME=ORGANISM2>',
+				backgroundColor: "#3498db",
+				data: <TMPL_VAR NAME=ORGANISM2_RNA_BREAKDOWN_DATA>
+			}
+		]		
+	};
+	
+	
+	var geneBreakdownChart = new Chart(ctx_geneBreakdown, {
+		type: 'pie', 
+		data: geneBreakdownData}
+	);
+	var dataBreakdown1Chart = new Chart(ctx_dataBreakdown1, {
+		type: 'pie', 
+		data: dataBreakdown1Data}
+	);
+	var dataBreakdown2Chart = new Chart(ctx_dataBreakdown2, {
+		type: 'pie', 
+		data: dataBreakdown2Data}
+	);
+	var geneTypesChart = new Chart(ctx_geneTypes, {
+		type: 'bar', 
+		data: geneTypesData}
+	);
+	var rnaTypesChart = new Chart(ctx_rnaTypes, {
+		type: 'bar', 
+		data: rnaTypesData}
+	);
+</script>
+<TMPL_INCLUDE NAME="footer.tmpl">
